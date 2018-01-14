@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+      <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        margin-top: 10px;
+        height: 80%;
+        width:100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 80%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/car.png">
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0-beta.3/lux/bootstrap.min.css" rel="stylesheet" integrity="sha384-XI0PIujkSZEzZ5m8WTEm+krRuIpfO+vHrEznaIrhTAkbrbIvfs11kzCqUarPR7yn" crossorigin="anonymous">
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>Park me</title>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"></div>
+      <div id="map"></div>
+    <script>
+      var map;
+      function initMap() {
+         var options = {
+        zoom:9,
+        center:{lat:44.439663,lng: 26.096306}
+      }
+
+      var map = new google.maps.Map(document.getElementById('map'), options);
+
+      google.maps.event.addListener(map, 'click', function(event){
+        
+        addMarker({coords:event.latLng});
+      });
+      
+      var markers = [
+        {
+          coords:{lat:44.482641,lng:26.101992},
+          content:'<h1>Parking Aviatiei</h1>'
+        },
+        {
+          coords:{lat:44.452235,lng:26.085277},
+          content:'<h1>Parking Piata Victoriei</h1>'
+        },
+        {
+           coords:{lat:44.446590,lng:26.097529},
+          content:'<h1>Parking Piata Romana</h1>'
+        },
+        {
+           coords:{lat:44.444248,lng:26.103902},
+          content:'<h1>Parking Icoanei</h1>'
+        },
+        {
+           coords:{lat:44.458815,lng:26.095405},
+          content:'<h1>Parking Dorobanti</h1>'
+        },
+        {
+           coords:{lat:44.458085,lng:26.080170},
+          content:'<h1>Parking Kiseleff</h1>'
+        },
+        {
+           coords:{lat:44.479930,lng:26.072531},
+          content:'<h1>Parking Piata Presei</h1>'
+        },
+         {
+           coords:{lat:44.459677,lng:26.100812},
+          content:'<h1>Parking Calea Floreasca</h1>'
+        },
+         {
+           coords:{lat:44.411994,lng:26.103859},
+          content:'<h1>Parking Tineretului</h1>'
+        },
+         {
+           coords:{lat:44.421680,lng:26.163082},
+          content:'<h1>Parking Titan</h1>'
+        },
+         {
+           coords:{lat:44.419455,lng:26.094418},
+          content:'<h1>Parking Carol</h1>'
+        }
+      ];
+
+     
+      for(var i = 0;i < markers.length;i++){
+        
+        addMarker(markers[i]);
+      }
+
+      // Add Marker Function
+      function addMarker(props){
+        var marker = new google.maps.Marker({
+          position:props.coords,
+          map:map,
+         
+        });
+
+      
+        if(props.iconImage){
+         
+          marker.setIcon(props.iconImage);
+        }
+
+  
+        if(props.content){
+          var infoWindow = new google.maps.InfoWindow({
+            content:props.content
+          });
+
+          marker.addListener('click', function(){
+            infoWindow.open(map, marker);
+          });
+        }
+      }
+    }
+  </script>
+   <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxwkuTguH4SfW6Pbjk9mf-3HEiTpBaGOY&callback=initMap">
+    </script>
+   
+  
+   
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>
+
